@@ -1,0 +1,260 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F5EEDC;
+  --foreground: #333333;
+  --primary: #27548A;
+  --secondary: #183B4E;
+  --accent: #DDA853;
+  --border-radius: 0.75rem;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --theme-transition: background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                      color 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                      border-color 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                      fill 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                      stroke 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                      box-shadow 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                      opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Theme transition overlay */
+.theme-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-transition-active .theme-transition-overlay {
+  opacity: 0.12;
+  background-color: var(--accent);
+}
+
+.dark {
+  --background: #183B4E;
+  --foreground: #F5EEDC;
+  --primary: #3B75B4;
+  --secondary: #224A63;
+  --accent: #E5BB7B;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+html.theme-transition * {
+  transition: var(--theme-transition) !important;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  transition: var(--theme-transition);
+  cursor: none !important; /* Hide the default cursor */
+}
+
+/* Hide scrollbar for all browsers */
+/* Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+/* Ensure buttons and interactive elements completely hide cursor */
+a, button, [role="button"], 
+.cursor-pointer, input, select, 
+textarea, label, [tabindex="0"] {
+  cursor: none !important;
+}
+
+/* Custom Cursor Styles */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  pointer-events: none;
+  mix-blend-mode: difference;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 5px rgba(221, 168, 83, 0.5));
+}
+
+.custom-cursor-follower {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease, width 0.2s ease, height 0.2s ease, border-color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: morph 8s ease-in-out infinite;
+}
+
+/* Tailwind doesn't purge these since they're dynamic */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.5s ease-out;
+}
+
+.animate-slideRight {
+  animation: slideRight 0.5s ease-out;
+}
+
+.animate-bounce {
+  animation: bounce 1.5s infinite;
+}
+
+.animate-morph {
+  animation: morph 8s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideRight {
+  0% { transform: translateX(-20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%; }
+  75% { border-radius: 60% 40% 30% 70% / 40% 70% 30% 60%; }
+}
+
+/* Loading Screen Styles */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease-out, background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loading-screen.loaded {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Particles and tech icons */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--primary);
+  opacity: 0.2;
+  pointer-events: none;
+  transition: background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tech-icon {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.2;
+  pointer-events: none;
+  color: var(--primary);
+  transition: color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scroll down indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+}
+
+.scroll-indicator-text {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.scroll-indicator-arrow {
+  font-size: 1.5rem;
+  animation: bounce 1.5s infinite;
+}
+
+/* Footer divider line with shadow */
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  box-shadow: 0 0 8px 1px var(--accent);
+  opacity: 0.6;
+  width: 100%;
+  margin: 1rem 0;
+  transition: box-shadow 1.2s cubic-bezier(0.4, 0, 0.2, 1), background 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Apply transition for all relevant elements */
+button, a, input, textarea, div, span, h1, h2, h3, h4, h5, h6, p, 
+section, article, aside, header, footer, nav, main, svg, img,
+path, rect, circle, line, polyline, polygon {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, transform, box-shadow, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 1.2s;
+}
