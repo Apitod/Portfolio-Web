@@ -69,7 +69,20 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   transition: var(--theme-transition);
-  cursor: none !important; /* Hide the default cursor */
+}
+
+/* Media query for non-touch devices only */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none !important; /* Hide the default cursor */
+  }
+  
+  /* Ensure buttons and interactive elements completely hide cursor */
+  a, button, [role="button"], 
+  .cursor-pointer, input, select, 
+  textarea, label, [tabindex="0"] {
+    cursor: none !important;
+  }
 }
 
 /* Hide scrollbar for all browsers */
@@ -77,13 +90,6 @@ body {
 ::-webkit-scrollbar {
   display: none;
   width: 0;
-}
-
-/* Ensure buttons and interactive elements completely hide cursor */
-a, button, [role="button"], 
-.cursor-pointer, input, select, 
-textarea, label, [tabindex="0"] {
-  cursor: none !important;
 }
 
 /* Custom Cursor Styles */
@@ -119,6 +125,10 @@ textarea, label, [tabindex="0"] {
   animation: float 6s ease-in-out infinite;
 }
 
+.animate-floatRandom {
+  animation: floatRandom 15s ease-in-out infinite;
+}
+
 .animate-fadeIn {
   animation: fadeIn 1s ease-in-out;
 }
@@ -142,6 +152,15 @@ textarea, label, [tabindex="0"] {
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
+}
+
+@keyframes floatRandom {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(10px, -10px); }
+  40% { transform: translate(-15px, -5px); }
+  60% { transform: translate(7px, 10px); }
+  80% { transform: translate(-5px, 5px); }
+  100% { transform: translate(0, 0); }
 }
 
 @keyframes fadeIn {
@@ -257,4 +276,31 @@ path, rect, circle, line, polyline, polygon {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, transform, box-shadow, opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 1.2s;
+}
+
+/* Fix input text visibility in dark mode */
+input, textarea, select {
+  color: var(--foreground);
+  transition: color 1.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark input, 
+.dark textarea, 
+.dark select {
+  color: #000000 !important; /* Black text color for better visibility in dark mode with !important to override other styles */
+  background-color: rgba(245, 238, 220, 0.95); /* Light background with higher opacity */
+  border-color: var(--primary);
+}
+
+/* Add more specific selectors for form inputs */
+.dark input[type="text"], 
+.dark input[type="email"], 
+.dark input[type="password"],
+.dark input[type="number"],
+.dark input[type="tel"],
+.dark input[type="url"],
+.dark input[type="search"],
+.dark textarea {
+  color: #000000 !important;
+  caret-color: #000000 !important; /* Make cursor black too */
 }

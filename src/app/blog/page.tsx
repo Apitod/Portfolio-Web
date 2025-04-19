@@ -2,49 +2,54 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { FiCalendar, FiTag, FiArrowRight } from "react-icons/fi";
+import Image from "next/image";
+import { FiCalendar, FiTag, FiArrowRight, FiExternalLink } from "react-icons/fi";
 
-export default function Blog() {
-  const blogPosts = [
+export default function Activity() {
+  const activities = [
     {
       id: 1,
-      title: "Getting Started with AI Development",
+      title: "Google Developer Student Club Workshop",
       excerpt:
-        "Exploring the fundamentals of artificial intelligence and how to begin your journey as an AI developer.",
-      date: "April 15, 2024",
-      category: "AI",
-      readTime: "5 min read",
-      slug: "getting-started-with-ai",
+        "Participated as a Student in a workshop about AI Kotlin Fundamentals for beginners.",
+      date: "February 25, 2025",
+      category: "Workshop",
+      location: "NutriHub Makassar",
+      image: "/images/Workshop.jpg",
+      slug: "gdsc-ai-workshop",
     },
     {
       id: 2,
-      title: "The Power of Python in Data Science",
+      title: "Google Developer Group DevFest",
       excerpt:
-        "How Python has become the go-to language for data scientists and why you should learn it too.",
-      date: "March 28, 2024",
-      category: "Programming",
-      readTime: "7 min read",
-      slug: "python-in-data-science",
+        "Attended a Google Developer Group DevFest event, where I learned about the latest trends in technology and the future of the industry.",
+      date: "November 12, 2024",
+      category: "Event",
+      location: "Ciputra University Makassar",
+      image: "/images/devfest.jpg",
+      slug: "event-devfest",
     },
     {
       id: 3,
-      title: "My First Semester as a CS Student",
+      title: "Information Systems Student Association (KampoenkSisfo2024)",
       excerpt:
-        "Reflections on challenges, achievements, and lessons learned during my first semester of university.",
+        "Becoming a Cadre of Information Systems Student Association (KampoenkSisfo2024).",
       date: "February 10, 2024",
-      category: "Personal",
-      readTime: "4 min read",
-      slug: "first-semester-reflections",
+      category: "Organization",
+      location: "UINAM Campus",
+      image: "/images/pengkaderan.jpg",
+      slug: "tech-exhibition",
     },
     {
       id: 4,
-      title: "Building a Portfolio Website with Next.js",
+      title: "Animation Workshop",
       excerpt:
-        "A step-by-step guide on creating a modern, responsive portfolio website using Next.js and Tailwind CSS.",
-      date: "January 22, 2024",
-      category: "Web Development",
-      readTime: "8 min read",
-      slug: "portfolio-with-nextjs",
+        "Creating a short animation using After Effects and Adobe Illustrator.",
+      date: "July 22, 2024",
+      category: "Education",
+      location: "Online",
+      image: "/images/activity-4.jpg",
+      slug: "web-bootcamp-completion",
     },
   ];
 
@@ -72,12 +77,14 @@ export default function Blog() {
 
   const getCategoryColor = (category: string) => {
     switch (category.toLowerCase()) {
-      case "ai":
+      case "workshop":
         return "bg-primary/10 text-primary";
-      case "programming":
+      case "competition":
         return "bg-secondary/10 text-secondary";
-      case "web development":
+      case "organization":
         return "bg-accent/10 text-accent";
+      case "education":
+        return "bg-green-500/10 text-green-500";
       default:
         return "bg-gray-100 dark:bg-dark-bg-light text-foreground/70";
     }
@@ -93,10 +100,10 @@ export default function Blog() {
           className="max-w-4xl mx-auto mb-16 text-center"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            My Blog
+            My Activities
           </h1>
           <p className="text-lg text-foreground/80">
-            Thoughts, tutorials, and insights about technology, development, and my learning journey.
+            Events, competitions, and educational experiences that have shaped my learning journey.
           </p>
         </motion.div>
 
@@ -106,40 +113,51 @@ export default function Blog() {
           animate="visible"
           className="max-w-5xl mx-auto"
         >
-          {blogPosts.map((post) => (
+          {activities.map((activity) => (
             <motion.article
-              key={post.id}
+              key={activity.id}
               variants={itemVariants}
-              className="mb-10 p-6 bg-background dark:bg-dark-bg rounded-xl shadow-md hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800"
+              className="mb-10 overflow-hidden bg-background dark:bg-dark-bg rounded-xl shadow-md hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800"
             >
-              <div className="flex items-center mb-3 space-x-3">
-                <span className="text-sm text-foreground/60 flex items-center">
-                  <FiCalendar className="mr-1 w-3 h-3" />
-                  {post.date}
-                </span>
-                <span className="text-sm text-foreground/60">•</span>
-                <span className="text-sm text-foreground/60">{post.readTime}</span>
-                <span className="text-sm text-foreground/60">•</span>
-                <span
-                  className={`text-xs px-2 py-1 rounded-full ${getCategoryColor(
-                    post.category
-                  )}`}
-                >
-                  <FiTag className="inline mr-1 w-3 h-3" />
-                  {post.category}
-                </span>
+              <div className="md:flex">
+                <div className="md:w-1/3 h-48 md:h-auto relative">
+                  <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                    <span className="text-3xl">🏆</span>
+                  </div>
+                </div>
+                <div className="p-6 md:w-2/3">
+                  <div className="flex flex-wrap items-center mb-3 gap-2">
+                    <span className="text-sm text-foreground/60 flex items-center">
+                      <FiCalendar className="mr-1 w-3 h-3" />
+                      {activity.date}
+                    </span>
+                    <span className="text-sm text-foreground/60">•</span>
+                    <span className="text-sm text-foreground/60 flex items-center">
+                      <FiExternalLink className="mr-1 w-3 h-3" />
+                      {activity.location}
+                    </span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${getCategoryColor(
+                        activity.category
+                      )}`}
+                    >
+                      <FiTag className="inline mr-1 w-3 h-3" />
+                      {activity.category}
+                    </span>
+                  </div>
+                  <h2 className="text-2xl font-bold mb-3 hover:text-primary transition-colors">
+                    <Link href={`/activity/${activity.slug}`}>{activity.title}</Link>
+                  </h2>
+                  <p className="text-foreground/70 mb-4">{activity.excerpt}</p>
+                  <Link
+                    href={`/activity/${activity.slug}`}
+                    className="text-primary hover:text-primary-dark transition-colors inline-flex items-center font-medium"
+                  >
+                    Read more
+                    <FiArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
+                </div>
               </div>
-              <h2 className="text-2xl font-bold mb-3 hover:text-primary transition-colors">
-                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-              </h2>
-              <p className="text-foreground/70 mb-4">{post.excerpt}</p>
-              <Link
-                href={`/blog/${post.slug}`}
-                className="text-primary hover:text-primary-dark transition-colors inline-flex items-center font-medium"
-              >
-                Read more
-                <FiArrowRight className="ml-2 w-4 h-4" />
-              </Link>
             </motion.article>
           ))}
         </motion.div>
@@ -151,8 +169,8 @@ export default function Blog() {
           className="mt-16 text-center"
         >
           <p className="text-foreground/70 mb-4">
-            This blog is where I share my knowledge, experiences, and thoughts.
-            Check back regularly for new content!
+            These activities represent my ongoing commitment to learning and growth.
+            Stay tuned for more updates on my journey!
           </p>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
         </motion.div>

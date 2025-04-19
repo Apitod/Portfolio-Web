@@ -6,19 +6,18 @@ const nextConfig: NextConfig = {
     // Disable ESLint during build
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ['i.scdn.co'], // Allow Spotify album art images
+    unoptimized: true, // For static exports
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
 };
 
-module.exports = {
-  output: 'export',
-  // Remove basePath for local development, add it only during production build for GitHub Pages
-  basePath: '',
-  images: {
-    unoptimized: true,
-  },
-  eslint: {
-    // Disable ESLint during build
-    ignoreDuringBuilds: true,
-  },
-}
+module.exports = nextConfig;
 
 export default nextConfig;

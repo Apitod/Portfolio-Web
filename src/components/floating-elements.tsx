@@ -12,7 +12,8 @@ const FloatingElements = () => {
     size: number;
     duration: number;
     delay: number;
-    direction: number;
+    animation: string;
+    rotation: number;
     element: React.ReactNode | null;
   }>>([]);
 
@@ -41,14 +42,22 @@ const FloatingElements = () => {
     const numIcons = Math.floor(Math.random() * 6) + 10; // 10-15 icons
     for (let i = 0; i < numIcons; i++) {
       const iconIndex = Math.floor(Math.random() * techIcons.length);
+      
+      // Choose animation type randomly
+      const animationType = Math.random() > 0.5 ? 'floatRandom' : 'float';
+      
+      // Random rotation angle
+      const rotation = Math.floor(Math.random() * 360);
+      
       newElements.push({
         id: i,
         x: Math.random() * 100, // position in % of viewport width
         y: Math.random() * 100, // position in % of viewport height
         size: Math.floor(Math.random() * 16) + 12, // size between 12px and 28px
-        duration: Math.floor(Math.random() * 20) + 20, // animation duration in seconds
+        duration: Math.floor(Math.random() * 20) + 15, // animation duration in seconds
         delay: Math.random() * -30, // animation delay in seconds (negative for different starting positions)
-        direction: Math.random() > 0.5 ? 1 : -1, // direction of movement
+        animation: animationType,
+        rotation: rotation,
         element: techIcons[iconIndex],
       });
     }
@@ -56,6 +65,12 @@ const FloatingElements = () => {
     // Generate particles (15-25)
     const numParticles = Math.floor(Math.random() * 11) + 15; // 15-25 particles
     for (let i = 0; i < numParticles; i++) {
+      // Choose animation type randomly
+      const animationType = Math.random() > 0.5 ? 'floatRandom' : 'float';
+      
+      // Random rotation angle
+      const rotation = Math.floor(Math.random() * 360);
+      
       newElements.push({
         id: i + numIcons,
         x: Math.random() * 100,
@@ -63,7 +78,8 @@ const FloatingElements = () => {
         size: Math.floor(Math.random() * 5) + 2, // particles are smaller (2-6px)
         duration: Math.floor(Math.random() * 30) + 15,
         delay: Math.random() * -30,
-        direction: Math.random() > 0.5 ? 1 : -1,
+        animation: animationType,
+        rotation: rotation,
         element: null, // no icon for particles
       });
     }
@@ -84,8 +100,8 @@ const FloatingElements = () => {
             width: item.element ? "auto" : `${item.size}px`,
             height: item.element ? "auto" : `${item.size}px`,
             fontSize: item.element ? `${item.size}px` : undefined,
-            animation: `float ${item.duration}s ease-in-out infinite ${item.delay}s`,
-            transform: `translate(-50%, -50%) translateY(${item.direction * 15}px)`,
+            animation: `${item.animation} ${item.duration}s ease-in-out infinite ${item.delay}s`,
+            transform: `translate(-50%, -50%) rotate(${item.rotation}deg)`,
           }}
         >
           {item.element}

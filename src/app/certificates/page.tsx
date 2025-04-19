@@ -1,5 +1,7 @@
 "use client";
 
+import { Metadata } from "next";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FiAward, FiExternalLink } from "react-icons/fi";
 
@@ -8,11 +10,11 @@ export default function Certificates() {
     {
       id: 1,
       title: "Azure AI Fundamentals",
-      organization: "Microsoft",
+      organization: "Microsoft & Talenta AI Indonesia",
       date: "2024",
       description: "Foundational knowledge of machine learning and AI in the cloud",
-      image: "/certificate-placeholder-1.jpg",
-      link: "#", // Will be replaced later
+      image: "/images/sertif3.jpeg",
+      link: "https://talentaid.biji-biji.com/storage/certificates/Certificate_156779_37_7n1y7.pdf?sv=2019-07-07&sr=b&sig=%2FsUJbDnqXYoHmfESJ7a43sfiC4YUGYx41uEXsoomJdw%3D&se=2024-08-24T05%3A39%3A05Z&sp=r",
     },
     {
       id: 2,
@@ -20,28 +22,34 @@ export default function Certificates() {
       organization: "LinkedIn & Microsoft",
       date: "2024",
       description: "Understanding generative AI technology and its applications",
-      image: "/certificate-placeholder-2.jpg",
-      link: "#", // Will be replaced later
+      image: "/images/Sertif1.jpg",
+      link: "https://www.linkedin.com/learning/certificates/1c8e5069f7d1c5d6b18880fa6605fbc665c6f95f6e96680f234d42de8d05005f",
     },
     {
       id: 3,
-      title: "Python for Data Science",
-      organization: "DataCamp",
+      title: "Gold Medalist – National Science and Language Olympiad (ONSB) 2023",
+      organization: "Olimpiade Nasional Sains dan Bahasa (ONSB), under BRANINDOKATOR",
       date: "2023",
-      description: "Python programming skills for data analysis and visualization",
-      image: "/certificate-placeholder-3.jpg",
-      link: "#", // Will be replaced later
+      description: "Awarded a Gold Medal (Predikat A+) for outstanding performance in the National Science and Language Olympiad (ONSB) held on January 29, 2023, in East Java, Indonesia.",
+      image: "/images/sertif4.jpeg",
+      link: "#",
     },
     {
       id: 4,
-      title: "Web Development Bootcamp",
-      organization: "Udemy",
-      date: "2023",
-      description: "Full-stack web development with modern frameworks",
-      image: "/certificate-placeholder-4.jpg",
-      link: "#", // Will be replaced later
+      title: "What Is Generative AI? – LinkedIn Learning",
+      organization: "LinkedIn Learning",
+      date: "2024",
+      description: "Completed an online course titled \"What Is Generative AI?\" from LinkedIn Learning, which explored the fundamentals of Generative Artificial Intelligence, including its applications, tools, and ethical considerations.",
+      image: "/images/Sertif2.jpg",
+      link: "#",
     },
   ];
+
+  // Helper function to check if string is a valid image path
+  const isValidImagePath = (path: string | undefined): boolean => {
+    if (!path) return false;
+    return path.endsWith('.jpg') || path.endsWith('.jpeg') || path.endsWith('.png');
+  };
 
   // Animation variants
   const containerVariants = {
@@ -102,7 +110,7 @@ export default function Certificates() {
                     <FiAward className="w-6 h-6 text-primary mr-3" />
                     <h3 className="text-xl font-bold">{certificate.title}</h3>
                   </div>
-                  <span className="bg-gray-100 dark:bg-dark-bg-light px-2 py-1 rounded-full text-xs">
+                  <span className="bg-gray-100 dark:bg-dark-bg-light text-gray-800 dark:text-gray-300 px-2 py-1 rounded-full text-xs">
                     {certificate.date}
                   </span>
                 </div>
@@ -112,15 +120,25 @@ export default function Certificates() {
                 <p className="text-foreground/70 mb-4">
                   {certificate.description}
                 </p>
-                <div className="h-40 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg flex items-center justify-center mb-4">
-                  <div className="text-center">
-                    <p className="text-sm text-foreground/60 mb-2">
-                      Certificate Preview
-                    </p>
-                    <p className="text-xs">
-                      (Upload your certificate images later)
-                    </p>
-                  </div>
+                <div className="h-60 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative bg-gradient-to-r from-primary/10 to-secondary/10">
+                  {isValidImagePath(certificate.image) ? (
+                    <Image
+                      src={certificate.image}
+                      alt={certificate.title}
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  ) : (
+                    <div className="text-center">
+                      <p className="text-sm text-foreground/60 mb-2">
+                        Certificate Preview
+                      </p>
+                      <p className="text-xs">
+                        (Upload your certificate images later)
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <a
                   href={certificate.link}

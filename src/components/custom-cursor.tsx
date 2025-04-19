@@ -8,8 +8,41 @@ const CustomCursor = () => {
   const [linkHovered, setLinkHovered] = useState(false);
   const [hidden, setHidden] = useState(true);
   const [isMoving, setIsMoving] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
+    // Detect if the device is a touch device
+    const detectTouchDevice = () => {
+      // Check for touch capability
+      const isTouchCapable = 'ontouchstart' in window || 
+        window.navigator.maxTouchPoints > 0 ||
+        (window.navigator as any).msMaxTouchPoints > 0;
+      
+      // Check for mobile user agent
+      const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        window.navigator.userAgent
+      );
+      
+      // Check window width (typically mobile devices are under 768px)
+      const isMobileWidth = window.innerWidth < 768;
+      
+      setIsTouchDevice(isTouchCapable || isMobileUserAgent || isMobileWidth);
+      
+      // If touch device, restore default cursor style
+      if (isTouchCapable || isMobileUserAgent || isMobileWidth) {
+        document.body.style.cursor = 'auto';
+        document.querySelectorAll('a, button, [role="button"], .cursor-pointer, input, select, textarea, label, [tabindex="0"]')
+          .forEach(el => {
+            (el as HTMLElement).style.cursor = 'auto';
+          });
+      }
+    };
+
+    detectTouchDevice();
+    
+    // Skip the rest of the setup if it's a touch device
+    if (isTouchDevice) return;
+
     const addEventListeners = () => {
       document.addEventListener("mousemove", onMouseMove);
       document.addEventListener("mouseenter", onMouseEnter);
@@ -80,7 +113,12 @@ const CustomCursor = () => {
       removeEventListeners();
       clearTimeout(moveTimeout);
     };
-  }, []);
+  }, [isTouchDevice]);
+
+  // Don't render the custom cursor for touch devices
+  if (isTouchDevice) {
+    return null;
+  }
 
   return (
     <>

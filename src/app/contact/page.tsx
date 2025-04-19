@@ -13,27 +13,53 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<null | "success" | "error">(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
+    setErrorMessage("");
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+      
       setSubmitStatus("success");
       setFormState({ name: "", email: "", message: "" });
       
-      // Reset status after 3 seconds
+      // Reset status after 5 seconds
       setTimeout(() => {
         setSubmitStatus(null);
-      }, 3000);
-    }, 1500);
+      }, 5000);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setSubmitStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to send message');
+      
+      // Reset error status after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus(null);
+      }, 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const socialLinks = [
@@ -45,7 +71,7 @@ export default function Contact() {
     },
     {
       icon: <FiLinkedin className="w-5 h-5" />,
-      href: "https://linkedin.com/in/razan-muhammad-dhirgham-aswani",
+      href: "https://www.linkedin.com/in/razan-muhammad-dhirgham-aswani-523154309?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BL4PX5g2GSe2UKccQLbySFw%3D%3D",
       label: "LinkedIn",
       color: "hover:bg-blue-600 hover:text-white",
     },
@@ -104,7 +130,7 @@ export default function Contact() {
                     Your Name
                   </label>
                   <div className="relative">
-                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/50">
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/50 dark:text-gray-400">
                       <FiUser />
                     </div>
                     <input
@@ -115,7 +141,7 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       className="w-full p-3 pl-10 bg-gray-50 dark:bg-dark-bg-light rounded-lg border border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                      placeholder="John Doe"
+                      placeholder="Yanto"
                     />
                   </div>
                 </div>
@@ -128,7 +154,7 @@ export default function Contact() {
                     Your Email
                   </label>
                   <div className="relative">
-                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/50">
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/50 dark:text-gray-400">
                       <FiMail />
                     </div>
                     <input
@@ -139,7 +165,7 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       className="w-full p-3 pl-10 bg-gray-50 dark:bg-dark-bg-light rounded-lg border border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                      placeholder="john@example.com"
+                      placeholder="Yanto@example.com"
                     />
                   </div>
                 </div>
@@ -152,7 +178,7 @@ export default function Contact() {
                     Your Message
                   </label>
                   <div className="relative">
-                    <div className="absolute left-3 top-4 text-foreground/50">
+                    <div className="absolute left-3 top-4 text-foreground/50 dark:text-gray-400">
                       <FiMessageSquare />
                     </div>
                     <textarea
@@ -215,7 +241,7 @@ export default function Contact() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mt-4 p-3 bg-green-100 text-green-800 rounded-lg text-sm"
                   >
-                    Message sent successfully! I&apos;ll get back to you soon.
+                    Message sent successfully! I'll get back to you as soon as possible.
                   </motion.div>
                 )}
 
@@ -225,7 +251,7 @@ export default function Contact() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mt-4 p-3 bg-red-100 text-red-800 rounded-lg text-sm"
                   >
-                    There was a problem sending your message. Please try again.
+                    {errorMessage || "There was a problem sending your message. Please try again."}
                   </motion.div>
                 )}
               </form>

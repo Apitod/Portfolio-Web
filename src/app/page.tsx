@@ -87,12 +87,13 @@ export default function Home() {
                   View Projects
                   <FiArrowRight className="ml-2" />
                 </Link>
-                <Link
-                  href="/contact"
+                <a
+                  href="/resume-razan.jpg" 
+                  download="Razan_Muhammad_Resume.jpg"
                   className="inline-flex items-center px-6 py-3 rounded-full bg-background dark:bg-dark-bg border border-primary text-primary font-medium hover:bg-primary/10 transition-all transform hover:scale-105"
                 >
-                  Get in Touch
-                </Link>
+                  Download Resume
+                </a>
               </motion.div>
             </motion.div>
 
