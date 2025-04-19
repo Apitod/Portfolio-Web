@@ -5,6 +5,9 @@ export async function POST(req: Request) {
   try {
     const { name, email, message } = await req.json();
 
+    // Log inputs for debugging
+    console.log('Contact form submission received:', { name, email });
+
     // Validate inputs
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -20,9 +23,16 @@ export async function POST(req: Request) {
       );
     }
 
-    // Create transporter (update with your email service details)
+    // Log environment variables (without showing full password)
+    console.log('Environment check:', { 
+      EMAIL_USER_EXISTS: !!process.env.EMAIL_USER,
+      EMAIL_PASSWORD_EXISTS: !!process.env.EMAIL_PASSWORD,
+      EMAIL_USER_VALUE: process.env.EMAIL_USER,
+    });
+
+    // Create transporter
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // e.g., 'gmail', 'outlook', etc.
+      service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
@@ -62,14 +72,26 @@ ${message}
       `,
     };
 
+    console.log('Attempting to send email...');
+    
     // Send the email
-    await transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    
+    console.log('Email sent successfully:', info.messageId);
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, messageId: info.messageId });
   } catch (error) {
     console.error('Error in contact API:', error);
+    
+    // More detailed error reporting
+    let errorMessage = 'Failed to send message';
+    if (error instanceof Error) {
+      errorMessage = `${errorMessage}: ${error.message}`;
+      console.error('Error stack:', error.stack);
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to send message' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
