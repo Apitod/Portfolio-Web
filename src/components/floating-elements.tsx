@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiCode, FiCpu, FiGithub, FiTerminal, FiServer, FiDatabase, FiGrid, FiHardDrive } from "react-icons/fi";
 import { DiJavascript1, DiPython, DiReact, DiCss3, DiHtml5, DiNodejsSmall } from "react-icons/di";
 
@@ -13,7 +13,7 @@ const FloatingElements = () => {
     duration: number;
     delay: number;
     direction: number;
-    element: JSX.Element | null;
+    element: React.ReactNode | null;
   }>>([]);
 
   useEffect(() => {
@@ -35,8 +35,6 @@ const FloatingElements = () => {
       <DiNodejsSmall key="node" className="tech-icon" />,
     ];
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
     const newElements = [];
 
     // Generate tech icons (10-15)

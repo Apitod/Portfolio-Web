@@ -213,16 +213,20 @@ export default function Projects() {
           className="mt-16 text-center"
         >
           <p className="text-foreground/70 mb-6">
-            Interested in working together? I'm always open to new projects and collaborations.
+            Interested in working together? I&apos;m always open to new projects and collaborations.
           </p>
           <Link
             href="/contact"
             className="inline-flex items-center px-6 py-3 rounded-full bg-primary hover:bg-primary-dark text-white transition-all transform hover:scale-105"
           >
-            Let's Talk
+            Let&apos;s Talk
             <FiExternalLink className="ml-2" />
           </Link>
         </motion.div>
+
+        <div className="py-16 text-center">
+          <p className="text-xl text-foreground/70">I&apos;m currently working on adding more projects here...</p>
+        </div>
       </div>
     </div>
   );

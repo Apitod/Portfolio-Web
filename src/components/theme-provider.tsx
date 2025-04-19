@@ -1,9 +1,13 @@
 "use client";
 
-import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { ThemeProvider as NextThemesProvider, type ThemeProviderProps as NextThemesProviderProps } from "next-themes";
 import { ReactNode, useEffect, useState } from "react";
 
-export function ThemeProvider({ children, ...props }: { children: ReactNode, [key: string]: any }) {
+interface ThemeProviderProps extends Omit<NextThemesProviderProps, 'children'> {
+  children: ReactNode;
+}
+
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   const [themeTransitioning, setThemeTransitioning] = useState(false);
   
   useEffect(() => {
@@ -39,15 +43,8 @@ export function ThemeProvider({ children, ...props }: { children: ReactNode, [ke
     };
   }, []);
   
-  const customOnChange = (theme?: string) => {
-    const event = new Event('themeChange');
-    window.dispatchEvent(event);
-    // Pass through to next-themes onChange if provided
-    props.onChange?.(theme);
-  };
-  
   return (
-    <NextThemesProvider {...props} onChange={customOnChange}>
+    <NextThemesProvider {...props}>
       {children}
       {themeTransitioning && <div className="theme-transition-overlay" />}
     </NextThemesProvider>

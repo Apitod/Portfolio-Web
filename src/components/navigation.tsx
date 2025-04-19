@@ -78,7 +78,7 @@ const Navigation = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="hidden md:flex items-center space-x-8"
           >
-            {navLinks.map((link, index) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.path}
                 href={link.path}
@@ -147,12 +147,12 @@ const Navigation = () => {
             transition={{ duration: 0.3 }}
             className="md:hidden mt-4 py-2 space-y-2"
           >
-            {navLinks.map((link, index) => (
+            {navLinks.map((link) => (
               <motion.div
                 key={link.path}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: 0.1 }}
               >
                 <Link
                   href={link.path}

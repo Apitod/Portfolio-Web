@@ -112,9 +112,10 @@ const Footer = () => {
         </div>
         
         <div className="text-center text-xs text-foreground/50 pt-2">
-          <p>"It always seems impossible until it’s done."</p>
+          <p>&quot;It always seems impossible until it&apos;s done.&quot;</p>
           <p>- Nelson Mandela</p>
         </div>
+
       </div>
     </motion.footer>
   );

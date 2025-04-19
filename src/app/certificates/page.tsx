@@ -79,7 +79,7 @@ export default function Certificates() {
           </h1>
           <p className="text-lg text-foreground/80">
             A collection of certifications that reflect my continuous learning journey.
-            I'm always looking to expand my skills and knowledge!
+            I&apos;m always looking to expand my skills and knowledge!
           </p>
         </motion.div>
 
@@ -148,6 +148,12 @@ export default function Certificates() {
             More certificates will be added as I continue my learning journey!
           </p>
         </motion.div>
+
+        {certificates.length === 0 && (
+          <div className="py-16 text-center">
+            <p className="text-xl text-foreground/70">I&apos;m currently working on adding my certificates here...</p>
+          </div>
+        )}
       </div>
     </div>
   );

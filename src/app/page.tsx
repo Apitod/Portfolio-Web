@@ -200,8 +200,8 @@ export default function Home() {
             className="max-w-3xl mx-auto text-center"
           >
             <h2 className="text-3xl font-bold mb-6">Let&apos;s Create Something Amazing Together</h2>
-            <p className="text-foreground/70 mb-8">
-              I'm always open to new projects and collaborations. Reach out and let's discuss how we can bring your ideas to life.
+            <p className="text-lg text-foreground/80 mb-6">
+              I&apos;m always excited to hear about new projects and opportunities. Let&apos;s create something amazing together!
             </p>
             <Link
               href="/contact"

@@ -110,16 +110,16 @@ export default function About() {
               <h2 className="text-2xl font-bold mb-6">Hey there! 👋</h2>
               <div className="space-y-4 text-lg">
                 <p>
-                  I'm Razan, a passionate Information Systems student at Universitas Islam Negeri Alauddin Makassar with a knack for building cool digital stuff!
+                  I&apos;m Razan, a passionate Information Systems student at Universitas Islam Negeri Alauddin Makassar with a knack for building cool digital stuff!
                 </p>
                 <p>
-                  When I'm not coding or playing piano, you can find me at the gym or diving into the latest AI research. I love creating things that are both functional and fun!
+                  When I&apos;m not coding or playing piano, you can find me at the gym or diving into the latest AI research. I love creating things that are both functional and fun!
                 </p>
                 <p>
-                  Currently, I'm exploring the fascinating world of artificial intelligence, developing Python-based applications, and working on creative web development projects.
+                  Currently, I&apos;m exploring the fascinating world of artificial intelligence, developing Python-based applications, and working on creative web development projects.
                 </p>
                 <p className="font-medium text-primary">
-                  I'm a fast learner who's always eager to take on new challenges and push my creative boundaries.
+                  I&apos;m a fast learner who&apos;s always eager to take on new challenges and push my creative boundaries.
                 </p>
               </div>
             </motion.div>
